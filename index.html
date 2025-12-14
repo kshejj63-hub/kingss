@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Super Bev AI v2.1.4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <style>
+      :root {
+        --color-primary: 16, 185, 129; /* Default Emerald */
+      }
+      
+      /* Gradients Definitions */
+      .bg-gradient-sunset { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); }
+      .dark .bg-gradient-sunset { background: linear-gradient(to bottom, #2b1015, #1a0b0e); }
+
+      .bg-gradient-ocean { background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%); }
+      .dark .bg-gradient-ocean { background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364); }
+
+      .bg-gradient-forest { background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%); } /* Placeholder, actually olive */
+      .dark .bg-gradient-forest { background: linear-gradient(to bottom, #134e5e, #71b280); }
+
+      .bg-gradient-lavender { background: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); }
+      .dark .bg-gradient-lavender { background: linear-gradient(to bottom, #23074d, #cc5333); } /* Deep purple mix */
+
+      .bg-gradient-midnight { background: #fff; }
+      .dark .bg-gradient-midnight { background: linear-gradient(to bottom, #000000, #434343); }
+
+      /* Glassmorphism Utilities */
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+      .dark .glass {
+        background: rgba(17, 24, 39, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(var(--color-primary), 0.3); 
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(var(--color-primary), 0.8); 
+      }
+      body {
+        transition: background-color 0.5s ease, color 0.3s ease;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['IBM Plex Sans Arabic', 'Cairo', 'Inter', 'ui-sans-serif', 'system-ui'],
+              mono: ['Fira Code', 'ui-monospace', 'SFMono-Regular']
+            },
+            colors: {
+              gray: {
+                750: '#2d3748',
+                850: '#1a202c',
+                950: '#0d1117',
+              },
+              primary: {
+                50: 'rgba(var(--color-primary), 0.05)',
+                100: 'rgba(var(--color-primary), 0.1)',
+                200: 'rgba(var(--color-primary), 0.2)',
+                300: 'rgba(var(--color-primary), 0.3)',
+                400: 'rgba(var(--color-primary), 0.4)',
+                500: 'rgba(var(--color-primary), 1)',
+                600: 'rgba(var(--color-primary), 0.9)',
+                700: 'rgba(var(--color-primary), 0.8)',
+                800: 'rgba(var(--color-primary), 0.7)',
+                900: 'rgba(var(--color-primary), 0.6)',
+              }
+            },
+            animation: {
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'spin-slow': 'spin 12s linear infinite',
+              'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.1/",
+    "react": "https://esm.sh/react@^19.2.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.1/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
+    "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+    "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+    "firebase/": "https://esm.sh/firebase@^12.6.0/",
+    "recharts": "https://esm.sh/recharts@2.12.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 overflow-hidden">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

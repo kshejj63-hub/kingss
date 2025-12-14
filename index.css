@@ -1,0 +1,149 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: 16, 185, 129;
+  --bg-color: #0e0e0e;
+  --text-color: #ffffff;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow: hidden;
+  transition: background-color 0.5s ease, color 0.3s ease;
+}
+
+/* Light Mode Overrides */
+.light-mode {
+    --bg-color: #f3f4f6;
+    --text-color: #1f2937;
+}
+
+.light-mode .glass-panel,
+.light-mode .glass {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .text-gray-400 { color: #6b7280; }
+.light-mode .text-gray-300 { color: #4b5563; }
+.light-mode .text-white { color: #111827; }
+.light-mode .bg-black\/60 { background-color: rgba(255, 255, 255, 0.8); }
+.light-mode .bg-\[\#1A1A1A\] { background-color: #ffffff; border-color: #e5e7eb; }
+.light-mode .bg-\[\#0e0e0e\] { background-color: #f9fafb; }
+.light-mode .border-white\/10 { border-color: rgba(0, 0, 0, 0.1); }
+.light-mode .hover\:bg-white\/10:hover { background-color: rgba(0, 0, 0, 0.05); }
+
+/* --- UI ANIMATIONS --- */
+
+@keyframes welcomeEntrance {
+  0% { opacity: 0; transform: scale(0.8) translateY(50px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes gentleEntrance {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes cardAppear {
+  0% { opacity: 0; transform: translateX(-30px) rotateY(-15deg); }
+  100% { opacity: 1; transform: translateX(0) rotateY(0); }
+}
+
+@keyframes selectPulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(0, 122, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); }
+}
+
+@keyframes expandBounce {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes rotate180 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(180deg); }
+}
+
+@keyframes codeFlow {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+@keyframes slideOutLeft {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes messageSlideIn {
+  0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes menuSlideIn {
+  0% { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes menuItemAppear {
+  0% { opacity: 0; transform: translateX(-10px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-orb {
+  0% { transform: scale(1); box-shadow: 0 0 20px rgba(0, 122, 255, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(0, 122, 255, 0.6); }
+  100% { transform: scale(1); box-shadow: 0 0 20px rgba(0, 122, 255, 0.4); }
+}
+
+@keyframes rotate-orb {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+@keyframes slideInDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- UTILITIES --- */
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+.element-3d { transform-style: preserve-3d; transition: transform 0.3s ease; }
+.element-3d:hover { transform: translateZ(20px); }
+
+.glass-panel {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.perspective-container { perspective: 1000px; }
+
+.sound-wave-bar {
+  width: 3px;
+  background: #007AFF;
+  border-radius: 2px;
+  animation: soundWave 1s ease-in-out infinite;
+}

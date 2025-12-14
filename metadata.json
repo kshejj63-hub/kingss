@@ -1,0 +1,9 @@
+{
+  "name": "Super Bev AI",
+  "description": "The ultimate AI assistant created and trained by Coach Super Bev.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera",
+    "display-capture"
+  ]
+}
