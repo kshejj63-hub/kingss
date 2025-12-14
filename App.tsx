@@ -81,7 +81,16 @@ function App() {
 
   useEffect(() => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }), [messages]);
   useEffect(() => { try { localStorage.setItem('chat_sessions', JSON.stringify(sessions)); } catch(e) {} }, [sessions]);
-  useEffect(() => { if (auth) onAuthStateChanged(auth, (u) => setUser(u ? { ...u } as User : null)); }, []);
+  
+  // Fix #310: Wrap setUser in a safe callback and use explicit unsubscribe
+  useEffect(() => { 
+      if (auth) {
+          const unsubscribe = onAuthStateChanged(auth, (u) => {
+              setUser(u ? { ...u } as User : null);
+          });
+          return unsubscribe;
+      }
+  }, []);
 
   // Handle Light Mode
   useEffect(() => {
@@ -144,11 +153,8 @@ function App() {
       setIsQuickMenuOpen(false);
       
       const model = AVAILABLE_MODELS.find(m => m.id === modelId);
-      // Optional: Add welcome message locally
       if (model) {
-          // Note: We don't save the session immediately to 'sessions' array here.
-          // It will be saved when the user sends the first message via the useEffect above.
-          // Or we can initialize messages.
+          // Optional: Add initial message logic here if needed
       }
   };
 
@@ -181,7 +187,13 @@ function App() {
         }
         setMessages(prev => prev.map(m => m.id === aiId ? { ...m, isStreaming: false } : m));
     } catch (e: any) {
-        // Error handled
+        setMessages(prev => [...prev, { 
+            id: Date.now().toString(), 
+            role: Role.MODEL, 
+            content: `Error: ${e.message}`, 
+            timestamp: Date.now(), 
+            modelId: currentModelId 
+        }]);
     } finally {
         setIsGenerating(false);
         setOrbState('idle');
@@ -201,7 +213,6 @@ function App() {
           <ThreeDOrb state={orbState} />
       </div>
 
-      {/* Replaced old LibraryModal props with new robust props */}
       <LibraryModal 
           isOpen={isLibraryOpen} 
           onClose={() => setIsLibraryOpen(false)} 
@@ -224,6 +235,15 @@ function App() {
       <ModelPicker isOpen={isModelPickerOpen} onClose={() => setIsModelPickerOpen(false)} currentModelId={currentModelId} onSelectModel={createNewSession} language={appSettings.language} />
       <FileActionModal isOpen={isFileActionOpen} onClose={() => setIsFileActionOpen(false)} language={appSettings.language} />
       <QuickMenu isOpen={isQuickMenuOpen} onClose={() => setIsQuickMenuOpen(false)} language={appSettings.language} onAction={(a) => { setIsQuickMenuOpen(false); if(a==='settings') setIsSettingsOpen(true); }} />
+      <ProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} user={user || {} as User} onUpdate={() => {}} language={appSettings.language} />
+
+      {isLiveSessionActive && (
+          <LiveAPIModal 
+              onClose={() => setIsLiveSessionActive(false)} 
+              systemInstruction={AVAILABLE_MODELS.find(m => m.id === currentModelId)?.instruction || ''}
+              language={appSettings.language}
+          />
+      )}
 
       <Sidebar 
           isOpen={isSidebarOpen} 
